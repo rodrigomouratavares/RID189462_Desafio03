@@ -10,6 +10,27 @@ function atualizarContador() {
     contador.textContent = `Tarefas concluídas: ${tarefasConcluidas}`;
 }
 
+// Função para salvar tarefas no localStorage
+function salvarTarefas() {
+    const tarefas = [];
+    const tarefaItens = todoList.querySelectorAll('.tarefa');
+
+    tarefaItens.forEach((tarefaItem) => {
+        const descricao = tarefaItem.querySelector('.task-content span').textContent;
+        const etiqueta = tarefaItem.querySelector('.etiqueta').textContent;
+        const data = tarefaItem.querySelector('.task-date').textContent;
+        const isCompleted = tarefaItem.querySelector('.botao-concluir').classList.contains('completed');
+
+        tarefas.push({
+            descricao,
+            etiqueta,
+            data,
+            isCompleted
+        });
+    });
+
+    localStorage.setItem('tarefas', JSON.stringify(tarefas));
+}
 // Função para carregar tarefas do localStorage
 function carregarTarefas() {
     const tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
